@@ -10,15 +10,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-let key = "";
+let key = "" , encryptionKey = "";
+
 const base64ToUint8 = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
 
 //OTP encryption
 app.post("/otp-encryption", (req, res, next) => {
   try {
     const plainTextBuffer = Buffer.from(req.body.message, "utf8");
-    key = req.body.key
-    const encrypted = OneTimePad.encrypt(OneTimePad.generatePad(req.body.key) , plainTextBuffer);
+    key = req.body.key;
+    encryptionKey = OneTimePad.generatePad(req.body.key);
+    const encrypted = OneTimePad.encrypt(encryptionKey , plainTextBuffer);
     return res.status(200).json({encrypted: Buffer.from(encrypted).toString("base64")});
   } catch (error) {
     next(error);
@@ -29,7 +31,7 @@ app.post("/otp-encryption", (req, res, next) => {
 app.post("/otp-decryption", (req, res, next) => {
   try {
     if (key !== req.body.key) return res.status(200).json({decrypted: ""});
-    const decrypted = OneTimePad.decrypt(key, base64ToUint8(req.body.encrypted));
+    const decrypted = OneTimePad.decrypt(encryptionKey , base64ToUint8(req.body.encrypted));
     return res.status(200).json({decrypted: Buffer.from(decrypted).toString("utf8")});
   } catch (error) {
     next(error);
