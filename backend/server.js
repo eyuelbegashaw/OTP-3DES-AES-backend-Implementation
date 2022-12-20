@@ -10,8 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-let key = "",
-  encryptionKey = "";
+let key = "";
+let encryptionKey = "";
 
 const base64ToUint8 = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
 
