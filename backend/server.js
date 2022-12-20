@@ -17,8 +17,8 @@ const base64ToUint8 = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
 app.post("/otp-encryption", (req, res, next) => {
   try {
     const plainTextBuffer = Buffer.from(req.body.message, "utf8");
-    key = OneTimePad.generatePad(req.body.key);
-    const encrypted = OneTimePad.encrypt(key, plainTextBuffer);
+    key = req.body.key
+    const encrypted = OneTimePad.encrypt(OneTimePad.generatePad(req.body.key) , plainTextBuffer);
     return res.status(200).json({encrypted: Buffer.from(encrypted).toString("base64")});
   } catch (error) {
     next(error);
