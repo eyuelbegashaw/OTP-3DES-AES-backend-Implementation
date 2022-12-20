@@ -1,0 +1,30 @@
+{
+  "name": "otp-3des-aes-backend-implementation",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon backend/server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eyuelbegashaw/OTP-3DES-AES-backend-Implementation.git"
+  },
+  "author": "Eyuel Begashaw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eyuelbegashaw/OTP-3DES-AES-backend-Implementation/issues"
+  },
+  "homepage": "https://github.com/eyuelbegashaw/OTP-3DES-AES-backend-Implementation#readme",
+  "dependencies": {
+    "@bpe/one-time-pad": "^1.0.2",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
