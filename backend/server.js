@@ -2,10 +2,13 @@ import express from "express";
 //import triple_des from "node_triple_des";
 import crypto from "crypto-js";
 import pkg from "@bpe/one-time-pad";
+import cors from "cors"
+
 const {OneTimePad} = pkg;
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 let key = "";
 const base64ToUint8 = str => Uint8Array.from(atob(str), c => c.charCodeAt(0));
