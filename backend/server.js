@@ -1,11 +1,9 @@
 import express from "express";
-//import triple_des from "node_triple_des";
 import crypto from "crypto-js";
 import pkg from "@bpe/one-time-pad";
 import cors from "cors";
 
 import atob from "atob";
-
 global.atob = atob;
 
 const {OneTimePad} = pkg;
@@ -27,8 +25,6 @@ app.post("/otp-encryption", (req, res, next) => {
     encryptionKey = OneTimePad.generatePad(req.body.key);
 
     const encrypted = OneTimePad.encrypt(encryptionKey, plainTextBuffer);
-    console.log(encryptionKey);
-    console.log(encrypted);
     return res.status(200).json({encrypted: Buffer.from(encrypted).toString("base64")});
   } catch (error) {
     next(error);
@@ -39,12 +35,9 @@ app.post("/otp-encryption", (req, res, next) => {
 app.post("/otp-decryption", (req, res, next) => {
   try {
     if (key !== req.body.key) return res.status(200).json({decrypted: ""});
-    console.log(encryptionKey);
-    console.log(base64ToUint8(req.body.encrypted));
     const decrypted = OneTimePad.decrypt(encryptionKey, base64ToUint8(req.body.encrypted));
     return res.status(200).json({decrypted: Buffer.from(decrypted).toString("utf8")});
   } catch (error) {
-    console.log(error.message);
     next(error);
   }
 });
@@ -53,7 +46,6 @@ app.post("/otp-decryption", (req, res, next) => {
 app.post("/3des-encryption", (req, res, next) => {
   try {
     let encrypted = crypto.TripleDES.encrypt(req.body.message, req.body.key).toString();
-    //let encrypted = triple_des.encrypt(req.body.key, req.body.message);
     return res.status(200).json({encrypted});
   } catch (error) {
     next(error);
@@ -65,7 +57,6 @@ app.post("/3des-decryption", (req, res, next) => {
   try {
     let bytes = crypto.TripleDES.decrypt(req.body.encrypted, req.body.key);
     let decrypted = bytes.toString(crypto.enc.Utf8);
-    //let decrypted = triple_des.decrypt(req.body.key, req.body.encrypted);
     return res.status(200).json({decrypted});
   } catch (error) {
     next(error);
