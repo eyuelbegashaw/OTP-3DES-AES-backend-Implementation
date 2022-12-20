@@ -1,0 +1,8 @@
+#textBox {
+  min-width: 340px;
+  height: 110px;
+}
+.select {
+  display: inline;
+  width: 150px;
+}
