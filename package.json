@@ -20,6 +20,7 @@
   "homepage": "https://github.com/eyuelbegashaw/OTP-3DES-AES-backend-Implementation#readme",
   "dependencies": {
     "@bpe/one-time-pad": "^1.0.2",
+    "atob": "^2.1.2",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "express": "^4.18.2"

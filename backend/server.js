@@ -4,6 +4,10 @@ import crypto from "crypto-js";
 import pkg from "@bpe/one-time-pad";
 import cors from "cors";
 
+import atob from "atob";
+
+global.atob = atob;
+
 const {OneTimePad} = pkg;
 
 const app = express();
